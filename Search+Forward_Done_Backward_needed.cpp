@@ -1,4 +1,4 @@
-//Implemented the Forward Selection, but output format is not clean, and still need backwards elimination. 
+//Implemented the Forward Selection, but output format is not clean at all, and still need backwards elimination. 
 #include <iostream>
 #include <string>
 //The following 3 include files are for rand(). Source: (https://www.cplusplus.com/reference/cstdlib/rand/)
@@ -78,10 +78,8 @@ bool checkIntersection(int current_set_of_features[], int k)
 //Put feature into consideration.
 int* pushback(int* current, int feature) {
 	int i = 0;
-	while (true) 
-	{
-		if (current[i] == 0) 
-		{
+	while (true) {
+		if (current[i] == 0) {
 			current[i] = feature;
 			return current;
 		}
@@ -92,10 +90,8 @@ int* pushback(int* current, int feature) {
 //Once done with feature, then throw it away.
 int* discard(int* current, int feature) {
 	int i = 0;
-	while (true) 
-	{
-		if (current[i] == feature) 
-		{
+	while (true) {
+		if (current[i] == feature) {
 			//cout << "Found " << feature << endl;
 			current[i] = 0;
 			return current;
@@ -211,14 +207,14 @@ void feature_search_demo(double data[502][102])
 
 void feature_search_demo_backward(double data[502][102])
 {
-	int current_set_of_features[300] = {1,2,3,4,5,6,7,8,9,10}; //Initialize empty set, or array in this case.
-	//for (int a = 0; a < 300; a++)
-	//{
-	//	for (int b = 1; b < 11; b++)
-	//	{
-	//		current_set_of_features[a] = data[a][b];
-	//	}
-	//}	
+	int current_set_of_features[300] = {}; //Initialize empty set, or array in this case.
+	for (int a = 0; a < 300; a++)
+	{
+		for (int b = 1; b < 11; b++)
+		{
+			current_set_of_features[a] = data[a][b];
+		}
+	}	
 	int set_features_dummy[10] = {};						   //Dummy Array to hold the set that has the highest accuracy.
 	float highest_Accuracy = 0;
 	//Small(i = 0-300, k = 1-11), Large(i = 0-500, k = 1-101), Range of large and small data set
