@@ -78,8 +78,10 @@ bool checkIntersection(int current_set_of_features[], int k)
 //Put feature into consideration.
 int* pushback(int* current, int feature) {
 	int i = 0;
-	while (true) {
-		if (current[i] == 0) {
+	while (true) 
+	{
+		if (current[i] == 0) 
+		{
 			current[i] = feature;
 			return current;
 		}
@@ -90,8 +92,10 @@ int* pushback(int* current, int feature) {
 //Once done with feature, then throw it away.
 int* discard(int* current, int feature) {
 	int i = 0;
-	while (true) {
-		if (current[i] == feature) {
+	while (true) 
+	{
+		if (current[i] == feature) 
+		{
 			//cout << "Found " << feature << endl;
 			current[i] = 0;
 			return current;
