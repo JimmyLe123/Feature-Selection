@@ -1,4 +1,4 @@
-//Implemented the Forward Selection, but output format is not clean at all, and still need backwards elimination. 
+//Implemented the Forward Selection, but output format is not clean, and still need backwards elimination. 
 #include <iostream>
 #include <string>
 //The following 3 include files are for rand(). Source: (https://www.cplusplus.com/reference/cstdlib/rand/)
@@ -190,12 +190,15 @@ void feature_search_demo(double data[502][102])
 		}
 		//Say we add feature 1, then we have {1} with ...% accuracy
 		//Say we add feature 4, then we have {1,4} with ...% accuracy(combined)
-
 		//Add in current feature to add inside of array(set).
 		current_set_of_features[i] = feature_to_add_at_this_level[i];	//current_set_of_features = feature_to_add_at_this_level;
+
 		memcpy(set_features_dummy, current_set_of_features, 10);
-		cout << "On level " << to_string(i + 1) << " I added feature " << to_string(feature_to_add_at_this_level[i]) << " to current set" << endl;
+		cout << "On level " << to_string(i+1) << " I added feature " << to_string(feature_to_add_at_this_level[i]) << " to current set" << endl;
 		cout << "Best Accuracy On this Level is " << best_accuracy_so_far*100 << "%" << " for feature " << feature_to_add_at_this_level[i] << endl;
+		cout << "The set of the highest accuracy so far is: ";
+		for_each(begin(set_features_dummy), end(set_features_dummy), print);
+		cout << endl;
 	}
 	//Convert Accuracy to percentage and output the final set that had the highest accuracy
 	cout << "The set had the highest accuracy below: " << endl;
@@ -205,12 +208,19 @@ void feature_search_demo(double data[502][102])
 void feature_search_demo_backward(double data[502][102])
 {
 	int current_set_of_features[300] = {1,2,3,4,5,6,7,8,9,10}; //Initialize empty set, or array in this case.
+	//for (int a = 0; a < 300; a++)
+	//{
+	//	for (int b = 1; b < 11; b++)
+	//	{
+	//		current_set_of_features[a] = data[a][b];
+	//	}
+	//}	
 	int set_features_dummy[10] = {};						   //Dummy Array to hold the set that has the highest accuracy.
 	float highest_Accuracy = 0;
 	//Small(i = 0-300, k = 1-11), Large(i = 0-500, k = 1-101), Range of large and small data set
 	for (int i = 0; i < 300; i++)
 	{
-		cout << "On the " << to_string(i + 1) << "th level of the search tree" << endl;
+		cout << "On the " << to_string(i+1) << "th level of the search tree" << endl;
 		//Hold features to add
 		int feature_to_add_at_this_level[300] = {};
 		//Compare with accuracy that is going to be calculated later.
@@ -234,13 +244,13 @@ void feature_search_demo_backward(double data[502][102])
 					feature_to_add_at_this_level[i] = k;
 				}
 			}
-		}	
+		}
 		//Say we add feature 1, then we have {1} with ...% accuracy
 		//Say we add feature 4, then we have {1,4} with ...% accuracy(combined)
 		//Add in current feature to add inside of array(set).
 		current_set_of_features[i] = feature_to_add_at_this_level[i];	//current_set_of_features = feature_to_add_at_this_level;
 		memcpy(set_features_dummy, current_set_of_features, 10);
-		cout << "On level " << to_string(i + 1) << " I added feature " << to_string(feature_to_add_at_this_level[i]) << " to current set" << endl;
+		cout << "On level " << to_string(i + 1) << " I removed feature " << to_string(feature_to_add_at_this_level[i]) << " to current set" << endl;
 		cout << "Best Accuracy On this Level is " << best_accuracy_so_far * 100 << "%" << " for feature " << feature_to_add_at_this_level[i] << endl;
 	}
 	//Convert Accuracy to percentage and output the final set that had the highest accuracy
@@ -264,7 +274,7 @@ int main(void)
 	ifstream read_File(File_Choice);
 	//Putting values from data file into a 2D array
 	//Reading text from file into array. Source(https://stackoverflow.com/questions/36708370/reading-from-txt-file-into-two-dimensional-array-in-c)
-	if (File_Choice == "CS170_SMALLtestdata__30.txt")
+	if (File_Choice == "CS170_SMALLtestdata__30.txt" || "CS170_small_special_testdata__95.txt")
 	{
 		for (int i = 0; i < 300; i++)
 			for (int j = 0; j < 11; j++)
